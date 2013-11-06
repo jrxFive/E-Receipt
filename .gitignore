@@ -1,0 +1,16 @@
+*.sln
+*.config
+*.designer.cs
+*.mdf
+*.dll
+*.cs.proj
+*.LDF
+*csproj
+*.usr
+*.exe
+*.cache
+*.manifest
+*.pdb
+*.txt
+*.js
+*.suo

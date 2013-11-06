@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EReceiptDB" Class="EReceiptLINQDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\EReceiptDB.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="EReceiptDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Customer" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="USER_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="USER_NAME" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="FIRST_NAME" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="LAST_NAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EMAIL" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SALT_PASSWORD" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="HASHED_PASSWORD" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Customer_CustomerReceipt" Member="CustomerReceipts" ThisKey="USER_ID" OtherKey="USER_ID" Type="CustomerReceipt" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CustomerReceipts" Member="CustomerReceipts">
+    <Type Name="CustomerReceipt">
+      <Column Name="USER_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RECEIPT_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Customer_CustomerReceipt" Member="Customer" ThisKey="USER_ID" OtherKey="USER_ID" Type="Customer" IsForeignKey="true" />
+      <Association Name="Receipt_CustomerReceipt" Member="Receipt" ThisKey="RECEIPT_ID" OtherKey="RECEIPT_ID" Type="Receipt" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Receipt" Member="Receipts">
+    <Type Name="Receipt">
+      <Column Name="RECEIPT_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UPLOAD_DATE" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="RECEIPT_URL" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Receipt_CustomerReceipt" Member="CustomerReceipts" ThisKey="RECEIPT_ID" OtherKey="RECEIPT_ID" Type="CustomerReceipt" />
+    </Type>
+  </Table>
+</Database>
